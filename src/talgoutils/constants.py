@@ -1549,3 +1549,4 @@ TOP_100_STOCK = ['3IINFOLTD',
  'YESBANK',
  'ZEEL',
  'ZOMATO']
+DATA_PATH='/Users/abhishekvalsan/talgo_data'
