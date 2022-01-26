@@ -1,3 +1,14 @@
+BINANCE='binance'
+KITE='kite'
+UPSTOX='upstox'
+INTRADAY_EQ='intraday_equity'
+DELIVERY_EQ='delivery_equity'
+FNO_FUTURES='fno_futures'
+FNO_OPTIONS='fno_options'
+
+DATA_PATH='/Users/abhishekvalsan/talgo_data'
+
+
 # Write general platform independent constants
 NIFTY50 = ['RELIANCE',
  'INFY',
@@ -1549,4 +1560,3 @@ TOP_100_STOCK = ['3IINFOLTD',
  'YESBANK',
  'ZEEL',
  'ZOMATO']
-DATA_PATH='/Users/abhishekvalsan/talgo_data'
