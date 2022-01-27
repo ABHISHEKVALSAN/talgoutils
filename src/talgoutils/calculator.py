@@ -8,7 +8,7 @@ def get_pl(buy, sell, qty, asset_class, platform='kite'):
     elif platform==const.BINANCE:
         return get_binance_pl(buy, sell, qty, asset_class)
     elif platform==const.UPSTOX:
-        return get_upstox_pl(buy, sell,  qty, asset_call)
+        return get_upstox_pl(buy, sell,  qty, asset_class)
 
 def get_kite_pl(buy, sell, qty, asset_class):
 
@@ -51,10 +51,13 @@ def get_kite_pl(buy, sell, qty, asset_class):
     else:
         print('Unknown asset class.')
         sys.exit(1)
-    return pl
 
 def get_binance_pl(buy, sell, qty, asset_class):
-    return pl
+    total_tax = 0
+    net_pl = (sell - buy) * qty - total_tax
+    return net_pl
 
 def get_upstox_pl(buy, sell, qty, asset_class):
-    return pl
+    total_tax = 0
+    net_pl = (sell - buy) * qty - total_tax
+    return net_pl
