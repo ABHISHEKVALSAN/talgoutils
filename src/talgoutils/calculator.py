@@ -1,7 +1,8 @@
 import talgoutils.constants as const
 import sys
 
-def get_pl(buy, sell, qty, asset_class, platform='kite'):
+def get_pl(buy, sell, qty, asset_class,
+            platform=const.KITE, exchange=const.NSE):
 
     if platform==const.KITE:
         return get_kite_pl(buy, sell, qty, asset_class)
