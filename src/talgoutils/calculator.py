@@ -38,8 +38,19 @@ def get_kite_pl(buy, sell, qty, asset_class):
         return net_pl
 
     elif asset_class == const.DELIVERY_EQ:
-        total_tax = 0
+
+        brokerage = 0 #always
+        stt_total = turnover * 0.01 * 0.01
+        ex_trans_chrg =  turover * 0.00345 * 0.01
+        gst = (brokerage + ex_trans_chrg) * 0.18
+        sebi_chrg = turover * 0.001 * 0.001
+        stamp_chrg = buy * qty * 0.15 * 0.001
+
+        total_tax = brokerage + stt_total + ex_trans_chrg + gst + \
+                    sebi_chrg + stamp_chrg
+
         net_pl = (sell - buy) * qty - total_tax
+        
         return net_pl
     elif asset_class == const.FNO_FUTURES:
         total_tax = 0
