@@ -5,6 +5,9 @@ INTRADAY_EQ='intraday_equity'
 DELIVERY_EQ='delivery_equity'
 FNO_FUTURES='fno_futures'
 FNO_OPTIONS='fno_options'
+NSE='nse'
+BSE='bse'
+
 
 DATA_PATH='/Users/abhishekvalsan/talgo_data'
 
