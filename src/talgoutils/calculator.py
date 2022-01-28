@@ -16,8 +16,9 @@ def get_kite_pl(buy, sell, qty, asset_class):
     turover = (buy + sell) * qty
 
     if asset_class == const.INTRADAY_EQ:
-        brokerage = min(turover * 0.0003, 40)
-        stt_total = int(sell * qty * 0.00025)
+
+        brokerage = min(turover * 0.03 * 0.01, 40)
+        stt_total = int(sell * qty * 0.025 * 0.01)
         ex_trans_chrg =  turover * 0.00345 * 0.01
         gst = (brokerage + ex_trans_chrg) * 0.18
         sebi_chrg = turover * 0.001 * 0.001
