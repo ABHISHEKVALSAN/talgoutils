@@ -12,14 +12,14 @@ def get_pl(buy, sell, qty, asset_class, platform='kite'):
 
 def get_kite_pl(buy, sell, qty, asset_class):
 
-    total_amount = (buy + sell) * qty
+    turover = (buy + sell) * qty
 
     if asset_class == const.INTRADAY_EQ:
-        brokerage = min(total_amount * 0.0003, 40)
-        stt_total = sell * qty * 0.00025
-        ex_trans_chrg =  total_amount * 0.00345 * 0.01
+        brokerage = min(turover * 0.0003, 40)
+        stt_total = int(sell * qty * 0.00025)
+        ex_trans_chrg =  turover * 0.00345 * 0.01
         gst = (brokerage + ex_trans_chrg) * 0.18
-        sebi_chrg = total_amount * 0.001 * 0.001
+        sebi_chrg = turover * 0.001 * 0.001
         stamp_chrg = buy * qty * 0.03 * 0.001
 
         total_tax = brokerage + stt_total + ex_trans_chrg + gst + \
