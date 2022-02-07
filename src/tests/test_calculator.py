@@ -25,11 +25,39 @@ class Testing(unittest.TestCase):
         net_pl = round(net_pl * 100)/100.0
         self.assertTrue(net_pl==3954.56)
 
+        net_pl = calc.get_kite_pl(1000,1100,40,const.INTRADAY_EQ)
+        net_pl = round(net_pl * 100)/100.0
+        self.assertTrue(net_pl==3954.56)
+
+        net_pl = calc.get_kite_pl(0,0,0,const.DELIVERY_EQ)
+        net_pl = round(net_pl * 100)/100.0
+        self.assertIsNotNone(net_pl)
+
+        net_pl = calc.get_kite_pl(0,0,0,const.DELIVERY_EQ)
+        net_pl = round(net_pl * 100)/100.0
+        self.assertIsNotNone(net_pl)
+
         net_pl = calc.get_kite_pl(0,0,0,const.DELIVERY_EQ)
         net_pl = round(net_pl * 100)/100.0
         self.assertIsNotNone(net_pl)
 
         net_pl = calc.get_kite_pl(0,0,0,const.FNO_OPTIONS)
+        net_pl = round(net_pl * 100)/100.0
+        self.assertIsNotNone(net_pl)
+
+        net_pl = calc.get_kite_pl(0,0,0,const.FNO_OPTIONS)
+        net_pl = round(net_pl * 100)/100.0
+        self.assertIsNotNone(net_pl)
+
+        net_pl = calc.get_kite_pl(0,0,0,const.FNO_OPTIONS)
+        net_pl = round(net_pl * 100)/100.0
+        self.assertIsNotNone(net_pl)
+
+        net_pl = calc.get_kite_pl(0,0,0,const.FNO_FUTURES)
+        net_pl = round(net_pl * 100)/100.0
+        self.assertIsNotNone(net_pl)
+
+        net_pl = calc.get_kite_pl(0,0,0,const.FNO_FUTURES)
         net_pl = round(net_pl * 100)/100.0
         self.assertIsNotNone(net_pl)
 
