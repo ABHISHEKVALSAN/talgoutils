@@ -13,16 +13,16 @@ def get_pl(buy, sell, qty, asset_class,
 
 def get_kite_pl(buy, sell, qty, asset_class, exchange=const.NSE):
 
-    turover = (buy + sell) * qty
+    turnover = (buy + sell) * qty
 
     if asset_class == const.INTRADAY_EQ:
 
-        brokerage = min(turover * 0.03 * 0.01, 40)
-        stt_total = int(sell * qty * 0.025 * 0.01)
-        ex_trans_chrg =  turover * 0.00345 * 0.01
+        brokerage = min(round(turnover * 0.03) * 0.01, 40)
+        stt_total = int(round(sell * qty * 0.025) * 0.01)
+        ex_trans_chrg =  round(turnover * 0.00345) * 0.01
         gst = (brokerage + ex_trans_chrg) * 0.18
-        sebi_chrg = turover * 0.0001 * 0.01
-        stamp_chrg = buy * qty * 0.003 * 0.01
+        sebi_chrg = round(turnover * 0.0001) * 0.01
+        stamp_chrg = round(buy * qty * 0.003) * 0.01
 
         total_tax = brokerage + stt_total + ex_trans_chrg + gst + sebi_chrg +\
                                                                     stamp_chrg
@@ -34,11 +34,11 @@ def get_kite_pl(buy, sell, qty, asset_class, exchange=const.NSE):
     elif asset_class == const.DELIVERY_EQ:
 
         brokerage = 0 #always
-        stt_total = turnover * 0.01 * 0.01
-        ex_trans_chrg =  turover * 0.00345 * 0.01
+        stt_total = round(round(turnover * 0.1) * 0.01)
+        ex_trans_chrg =  round(turnover * 0.00345) * 0.01
         gst = (brokerage + ex_trans_chrg) * 0.18
-        sebi_chrg = turover * 0.001 * 0.001
-        stamp_chrg = buy * qty * 0.15 * 0.001
+        sebi_chrg = round(turnover * 0.01 *0.01) * 0.01
+        stamp_chrg = round(buy * qty * 0.015) * 0.01
 
         total_tax = brokerage + stt_total + ex_trans_chrg + gst + sebi_chrg +\
                                                                     stamp_chrg
@@ -48,12 +48,15 @@ def get_kite_pl(buy, sell, qty, asset_class, exchange=const.NSE):
         return net_pl
     elif asset_class == const.FNO_FUTURES:
 
-        brokerage = min(turover * 0.03 * 0.01, 40)
-        stt_total = sell * qty * 0.01 * 0.01
-        ex_trans_chrg =  turover * 0.002 * 0.01 if exchange == const.NSE else 0
+        brokerage = min(round(turnover * 0.03) * 0.01, 40)
+        stt_total = round(sell * qty * 0.01 * 0.01)
+        if exchange == const.NSE:
+            ex_trans_chrg =  round(turnover * 0.002) * 0.01
+        else:
+            ex_trans_chrg = 0
         gst = (brokerage + ex_trans_chrg) * 0.18
-        sebi_chrg = turover * 0.0001 * 0.01
-        stamp_chrg = buy * qty * 0.002 * 0.01
+        sebi_chrg = round(turnover * 0.0001) * 0.01
+        stamp_chrg = round(buy * qty * 0.002) * 0.01
 
         total_tax = brokerage + stt_total + ex_trans_chrg + gst + sebi_chrg +\
                                                                     stamp_chrg
@@ -63,17 +66,28 @@ def get_kite_pl(buy, sell, qty, asset_class, exchange=const.NSE):
         return net_pl
     elif asset_class == const.FNO_OPTIONS:
 
-        brokerage = min(turover * 0.03 * 0.01, 40)
-        stt_total = sell * qty * 0.05 * 0.01
-        ex_trans_chrg =  turover * 0.053 * 0.01 if exchange == const.NSE else 0
+        brokerage = 40
+        stt_total = round(sell * qty * 0.05 * 0.01)
+        if exchange == const.NSE:
+            ex_trans_chrg = round(turnover * 0.053) * 0.01
+        else:
+            ex_trans_chrg = 0
         gst = (brokerage + ex_trans_chrg) * 0.18
-        sebi_chrg = turover * 0.0001 * 0.01
-        stamp_chrg = buy * qty * 0.003 * 0.01
+        sebi_chrg = round(turnover * 0.01 * 0.01) * 0.01
+        stamp_chrg = round(buy * qty * 0.003) * 0.01
 
         total_tax = brokerage + stt_total + ex_trans_chrg + gst + sebi_chrg +\
                                                                     stamp_chrg
 
         net_pl = (sell - buy) * qty - total_tax
+
+        # print('brokerage : ',brokerage)
+        # print('stt_total : ', stt_total)
+        # print('ex_trans_chrg : ', ex_trans_chrg)
+        # print('gst : ', gst)
+        # print('sebi_chrg : ', sebi_chrg)
+        # print('stamp_chrg', stamp_chrg)
+        # print(net_pl)
 
         return net_pl
     else:
