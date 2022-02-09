@@ -1,17 +1,29 @@
-import talgoutils.constants as const
-import sys
+'''
+Set of function to determine the brokerage and tax deduction in various
+platforms and exchanges
+'''
 
-def get_pl(buy, sell, qty, asset_class,
-            platform=const.KITE, exchange=const.NSE):
+import sys
+import talgoutils.constants as const
+
+
+def get_pl(buy, sell, qty, asset_class, platform, exchange):
+    '''
+    Get P&L from different platform upon a transaction
+    '''
 
     if platform==const.KITE:
-        return get_kite_pl(buy, sell, qty, asset_class)
-    elif platform==const.BINANCE:
+        return get_kite_pl(buy, sell, qty, asset_class, exchange)
+    if platform==const.BINANCE:
         return get_binance_pl(buy, sell, qty, asset_class)
-    elif platform==const.UPSTOX:
+    if platform==const.UPSTOX:
         return get_upstox_pl(buy, sell,  qty, asset_class)
+    print('')
 
 def get_kite_pl(buy, sell, qty, asset_class, exchange=const.NSE):
+    '''
+    Get P&L according to zerodha calculator
+    '''
 
     turnover = (buy + sell) * qty
 
@@ -31,7 +43,7 @@ def get_kite_pl(buy, sell, qty, asset_class, exchange=const.NSE):
 
         return net_pl
 
-    elif asset_class == const.DELIVERY_EQ:
+    if asset_class == const.DELIVERY_EQ:
 
         brokerage = 0 #always
         stt_total = round(round(turnover * 0.1) * 0.01)
@@ -46,7 +58,7 @@ def get_kite_pl(buy, sell, qty, asset_class, exchange=const.NSE):
         net_pl = (sell - buy) * qty - total_tax
 
         return net_pl
-    elif asset_class == const.FNO_FUTURES:
+    if asset_class == const.FNO_FUTURES:
 
         brokerage = min(round(turnover * 0.03) * 0.01, 40)
         stt_total = round(sell * qty * 0.01 * 0.01)
@@ -64,7 +76,7 @@ def get_kite_pl(buy, sell, qty, asset_class, exchange=const.NSE):
         net_pl = (sell - buy) * qty - total_tax
 
         return net_pl
-    elif asset_class == const.FNO_OPTIONS:
+    if asset_class == const.FNO_OPTIONS:
 
         brokerage = 40
         stt_total = round(sell * qty * 0.05 * 0.01)
@@ -90,16 +102,27 @@ def get_kite_pl(buy, sell, qty, asset_class, exchange=const.NSE):
         # print(net_pl)
 
         return net_pl
-    else:
-        print('Unknown asset class.')
-        sys.exit(1)
+    print('Unknown asset class.')
+    sys.exit(1)
 
 def get_binance_pl(buy, sell, qty, asset_class):
+    '''
+    Get P&L after a binance transaction
+    '''
     total_tax = 0
-    net_pl = (sell - buy) * qty - total_tax
+    if asset_class:
+        net_pl = (sell - buy) * qty - total_tax
+    if not asset_class:
+        net_pl = (sell - buy) * qty - total_tax
     return net_pl
 
 def get_upstox_pl(buy, sell, qty, asset_class):
+    '''
+    Get P&L after transaction in upstox
+    '''
     total_tax = 0
-    net_pl = (sell - buy) * qty - total_tax
+    if asset_class:
+        net_pl = (sell - buy) * qty - total_tax
+    if not asset_class:
+        net_pl = (sell - buy) * qty - total_tax
     return net_pl
