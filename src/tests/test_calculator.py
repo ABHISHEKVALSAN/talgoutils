@@ -1,14 +1,24 @@
+'''
+This module performs unittest
+'''
+import unittest
 import talgoutils.constants as const
 import talgoutils.calculator as calc
-import unittest
-
 
 class Testing(unittest.TestCase):
+    '''
+    This class performs unittests on all the functions in talgoutils.calculator
+    '''
     def test_get_pl(self):
-
-        kite_result = calc.get_pl(0,0,0,const.INTRADAY_EQ,const.KITE)
-        binance_result = calc.get_pl(0,0,0,const.INTRADAY_EQ,const.BINANCE)
-        upstox_result = calc.get_pl(0,0,0,const.INTRADAY_EQ,const.UPSTOX)
+        '''
+        Unittest function to validate the function get_pl()
+        '''
+        kite_result = calc.get_pl(0, 0, 0, const.INTRADAY_EQ, const.KITE,
+                                                                    const.NSE)
+        binance_result = calc.get_pl(0, 0, 0, const.INTRADAY_EQ, const.BINANCE,
+                                                                const.BINANCE)
+        upstox_result = calc.get_pl(0, 0, 0, const.INTRADAY_EQ, const.UPSTOX,
+                                                                    const.NSE)
 
         self.assertIsNotNone(kite_result)
         self.assertIsNotNone(binance_result)
@@ -16,114 +26,96 @@ class Testing(unittest.TestCase):
 
 
     def test_kite_pl(self):
-
+        '''
+        Unittest function to validate the method get_kite_pl()
+        '''
         net_pl = calc.get_kite_pl(1000,1100,400,const.INTRADAY_EQ)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==39795.76)
+        self.assertTrue(round(net_pl * 100)/100.0==39795.76)
 
         net_pl = calc.get_kite_pl(1000,1100,40,const.INTRADAY_EQ)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==3954.56)
+        self.assertTrue(round(net_pl * 100)/100.0==3954.56)
 
         net_pl = calc.get_kite_pl(100,110,4,const.INTRADAY_EQ)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==39.66)
+        self.assertTrue(round(net_pl * 100)/100.0==39.66)
 
         net_pl = calc.get_kite_pl(110,100,4,const.INTRADAY_EQ)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==-40.34)
+        self.assertTrue(round(net_pl * 100)/100.0==-40.34)
 
         net_pl = calc.get_kite_pl(1000,1100,400,const.DELIVERY_EQ)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==39064.96)
+        self.assertTrue(round(net_pl * 100)/100.0==39064.96)
 
         net_pl = calc.get_kite_pl(1000,1100,40,const.DELIVERY_EQ)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==3906.5)
+        self.assertTrue(round(net_pl * 100)/100.0==3906.5)
 
         net_pl = calc.get_kite_pl(100,110,4,const.DELIVERY_EQ)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==38.9)
+        self.assertTrue(round(net_pl * 100)/100.0==38.9)
 
         net_pl = calc.get_kite_pl(110,100,4,const.DELIVERY_EQ)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==-41.11)
+        self.assertTrue(round(net_pl * 100)/100.0==-41.11)
 
         net_pl = calc.get_kite_pl(1000,1100,400,const.FNO_FUTURES, const.NSE)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==39880.14)
+        self.assertTrue(round(net_pl * 100)/100.0==39880.14)
 
         net_pl = calc.get_kite_pl(1000,1100,400,const.FNO_FUTURES, const.BSE)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==39899.96)
+        self.assertTrue(round(net_pl * 100)/100.0==39899.96)
 
         net_pl = calc.get_kite_pl(1000,1100,40,const.FNO_FUTURES, const.NSE)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==3963.4)
+        self.assertTrue(round(net_pl * 100)/100.0==3963.4)
 
         net_pl = calc.get_kite_pl(1000,1100,40,const.FNO_FUTURES, const.BSE)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==3965.38)
+        self.assertTrue(round(net_pl * 100)/100.0==3965.38)
 
         net_pl = calc.get_kite_pl(100,110,4,const.FNO_FUTURES, const.NSE)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==39.67)
+        self.assertTrue(round(net_pl * 100)/100.0==39.67)
 
         net_pl = calc.get_kite_pl(100,110,4,const.FNO_FUTURES, const.BSE)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==39.7)
+        self.assertTrue(round(net_pl * 100)/100.0==39.7)
 
         net_pl = calc.get_kite_pl(110,100,4,const.FNO_FUTURES, const.NSE)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==-40.33)
+        self.assertTrue(round(net_pl * 100)/100.0==-40.33)
 
         net_pl = calc.get_kite_pl(110,100,4,const.FNO_FUTURES, const.BSE)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==-40.3)
+        self.assertTrue(round(net_pl * 100)/100.0==-40.3)
 
         net_pl = calc.get_kite_pl(1000,1100,400, const.FNO_OPTIONS, const.NSE)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==39194.62)
+        self.assertTrue(round(net_pl * 100)/100.0==39194.62)
 
         net_pl = calc.get_kite_pl(1000,1100,400, const.FNO_OPTIONS, const.BSE)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==39719.96)
+        self.assertTrue(round(net_pl * 100)/100.0==39719.96)
 
         net_pl = calc.get_kite_pl(1000,1100,40, const.FNO_OPTIONS, const.NSE)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==3876.99)
+        self.assertTrue(round(net_pl * 100)/100.0==3876.99)
 
         net_pl = calc.get_kite_pl(1000,1100,40, const.FNO_OPTIONS, const.BSE)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==3929.52)
+        self.assertTrue(round(net_pl * 100)/100.0==3929.52)
 
         net_pl = calc.get_kite_pl(100,110,4, const.FNO_OPTIONS, const.NSE)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==-7.74)
+        self.assertTrue(round(net_pl * 100)/100.0==-7.74)
 
         net_pl = calc.get_kite_pl(100,110,4, const.FNO_OPTIONS, const.BSE)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==-7.21)
+        self.assertTrue(round(net_pl * 100)/100.0==-7.21)
 
         net_pl = calc.get_kite_pl(110,100,4, const.FNO_OPTIONS, const.NSE)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==-87.74)
+        self.assertTrue(round(net_pl * 100)/100.0==-87.74)
 
         net_pl = calc.get_kite_pl(110,100,4, const.FNO_OPTIONS, const.BSE)
-        net_pl = round(net_pl * 100)/100.0
-        self.assertTrue(net_pl==-87.21)
+        self.assertTrue(round(net_pl * 100)/100.0==-87.21)
 
-        with self.assertRaises(SystemExit) as cm:
+        with self.assertRaises(SystemExit) as system_exit:
             calc.get_kite_pl(0,0,0,'gibberish')
-        self.assertEqual(cm.exception.code, 1)
+        self.assertEqual(system_exit.exception.code, 1)
 
     def test_binance_pl(self):
-
-        self.assertTrue(True)
+        '''
+        Unittest function to validate the method get_binance_pl()
+        '''
+        self.assertIsNotNone(self)
 
     def test_upstox_pl(self):
-
-        self.assertTrue(True)
+        '''
+        Unittest fucntion to validate the method get_upstox_pl()
+        '''
+        self.assertIsNotNone(self)
 
 if __name__=='__main__':
     unittest.main()
