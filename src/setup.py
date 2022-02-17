@@ -1,4 +1,6 @@
-# write setup.py
+'''
+Setup file for talgoutils library
+'''
 from setuptools import setup, find_packages
 
 setup(
