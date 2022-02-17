@@ -1,28 +1,51 @@
+'''
+Frequency module to generate path extension for daily weekly schedule runs,
+in the structure that is intuitive and are required standards for data query
+tools like presto while querying data lakes.
+'''
+
 from datetime import datetime as dt, timedelta as td
 
+def get_daily(pathformat='y=%Y/m=%m/d=%d'):
+    '''
+    daily frequency provide path extension for daily runs
+    '''
+    return (dt.now()-td(days=1)).strftime(pathformat)
 
-def get_daily(time, format='y=%Y/m=%m/d=%d'):
-    return (dt.now()-td(days=1)).strftime(format)
-
-def get_bidaily(time, format='y=%Y/m=%m/d=%d'):
-    if time.hour>=12:
-        return (dt.now()-td(hour=1)).strftime(format)+'/h=12'
-    else:
-        return (dt.now()-td(hour=1)).strftime(format)+'/h=00'
-
-
-def get_hourly(time, format='y=%Y/m=%m/d=%d/h=%h'):
-    return (dt.now()-td(hour=1)).strftime(format)
-
-def get_weekly(time, format='y=%Y/w=%W'):
-    return (dt.now()-td(days=7)).strftime(format)
-
-def get_biweekfly(time, format='y=%Y/w=%W'):
-    if time.weekday<=4:
-        return (dt.now()-td(days=4)).strftime(format)+'/d=00'
-    else:
-        return (dt.now()-td(days=4)).strftime(format)+'/d=04'
+def get_bidaily(pathformat='y=%Y/m=%m/d=%d'):
+    '''
+    bidaily frequency provide path extension for runs that happens twice a day
+    '''
+    current_time=dt.now()
+    if current_time.hour>=12:
+        return (current_time-td(hour=1)).strftime(pathformat)+'/h=12'
+    return (current_time-td(hour=1)).strftime(pathformat)+'/h=00'
 
 
-def get_yearly(time, format='y=%Y'):
-    return (dt.now()-td(year=1)).strftime(format)
+def get_hourly(pathformat='y=%Y/m=%m/d=%d/h=%h'):
+    '''
+    hourly frequency provide path extension for runs that happens hourly
+    '''
+    return (dt.now()-td(hour=1)).strftime(pathformat)
+
+def get_weekly(pathformat='y=%Y/w=%W'):
+    '''
+    For weekly runs
+    '''
+    return (dt.now()-td(days=7)).strftime(pathformat)
+
+def get_biweekfly(pathformat='y=%Y/w=%W'):
+    '''
+    For biweekly runs
+    '''
+    current_time = dt.now()
+    if current_time.weekday<=4:
+        return (current_time-td(days=4)).strftime(pathformat)+'/d=00'
+    return (current_time-td(days=4)).strftime(pathformat)+'/d=04'
+
+
+def get_yearly(pathformat='y=%Y'):
+    '''
+    For yearly runs :/
+    '''
+    return (dt.now()-td(year=1)).strftime(pathformat)
