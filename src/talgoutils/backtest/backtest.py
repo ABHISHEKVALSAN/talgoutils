@@ -3,37 +3,37 @@ import numpy as np
 from datetime import datetime as dt, timedelta as td
 
 
-def get_stock( stock_name, date):
-    return stock_data
-
+def get_asset( asset_name, date):
+    return asset_data
 
 def feed_sequential_data(
-                    stock_list=const.NIFTY50,
+                    asset_list=const.NIFTY50,
                     interval='5minute',
                     start_date,
                     end_date):
-    for stock in stock_list:
+    for asset in asset_list:
         while iter_date>=start_date:
             iter_date = end_date
-            stock_detail['date'] = iter_date
-            stock_detail['symbol'] = random_stock
-            stock_detail['data'] = get_stock(stock_name, stock_date)
-            yield stock_detail
+            asset_detail['date'] = iter_date
+            asset_detail['symbol'] = random_asset
+            asset_detail['data'] = get_asset(asset_name, asset_date)
+            yield asset_detail
             iter_date =  iter_date - timedelta(days=1)
 
 
 def feed_random_data(
-                        stock_list=const.NIFTY50,
+                        asset_list=const.NIFTY50,
                         interval='5minute',
                         start_date,
                         end_date
                 ):
     random_date = get_random_date(start_date, end_date)
-    randome_stock = random.choice(stock_list)
+    randome_asset = random.choice(asset_list)
 
-    stock['date'] = random_date
-    stock['symbol'] = random_stock
-    stock['data'] = get_stock(randome_stock, random_date, interval)
+    asset_detail['date'] = random_date
+    asset_detail['symbol'] = random_asset
+    asset_detail['data'] = get_asset(randome_asset, random_date, interval)
+    asset_detail['']
 
 
-    yield stock_detail
+    yield asset_detail
