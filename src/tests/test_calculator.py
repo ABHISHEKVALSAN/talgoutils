@@ -1,5 +1,5 @@
 '''
-This module performs unittest
+This module performs unittest for calculator 
 '''
 import unittest
 import talgoutils.constants as const
