@@ -2,6 +2,7 @@
 The constants.py stores variables that are used multiple times accross different
 module and files, it enhances reusability and a single point for making changes.
 '''
+
 BINANCE='binance'
 KITE='kite'
 UPSTOX='upstox'
@@ -11,9 +12,6 @@ FNO_FUTURES='fno_futures'
 FNO_OPTIONS='fno_options'
 NSE='nse'
 BSE='bse'
-
-
-DATA_PATH='/Users/abhishekvalsan/talgo_data'
 
 
 # Write general platform independent constants
