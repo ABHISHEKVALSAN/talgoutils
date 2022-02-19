@@ -1,3 +1,3 @@
 import os
 
-DATA_PATH = os.eviron.bet('DATA_PATH')
+DATA_PATH = os.environ.get('DATA_PATH')
