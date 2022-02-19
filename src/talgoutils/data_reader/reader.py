@@ -1,7 +1,18 @@
 import pandas as pd
-from talfoutils import constants as const
+from talgoutils import constants as const
 
 def read_data(filename):
+    '''
+    Understand the file format and the file location from the filename, and
+    read data according. Filepath can also be URI in the future.
+
+    Example: wasb://<my_container>/path/to/file.csv or s3://<bucket>/path/to/
+    file.csv
+
+    params: filename str
+    rparam: df pandas.DataFrame
+    '''
+
     if filename.endswith(const.CSV):
         return read_csv(filename)
     elif filename.endsiwth(const.PARQUET):
