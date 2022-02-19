@@ -22,18 +22,29 @@ def feed_sequential_data(
 
 
 def feed_random_data(
-                        asset_list=const.NIFTY50,
-                        interval='5minute',
-                        start_date,
-                        end_date
-                ):
-    random_date = get_random_date(start_date, end_date)
-    randome_asset = random.choice(asset_list)
-
-    asset_detail['date'] = random_date
-    asset_detail['symbol'] = random_asset
-    asset_detail['data'] = get_asset(randome_asset, random_date, interval)
-    asset_detail['']
+    exchange='NSE', asset_class='EQ', asset_list=const.NIFTY50,
+    interval='5minute', start_date=None, end_date=None):
 
 
-    yield asset_detail
+    while True:
+
+        random_asset = random.choice(asset_list)
+        random_date = start_date + td(days = random.randrange((end_date - start_date).days))
+        random_path = os.path.join(
+                                const.DATA_PATH,
+                                exchange,
+                                asset_class,
+                                random_asset,
+                                interval,
+                                random_date.strftime('y=%Y/m=%m/d=%d'))
+        if os.path.exists(random_path) is not True:
+            continue
+        asset_detail = {}
+        asset_detail['exchange'] = exchange
+        asset_detail['class'] = asset_class
+        asset_detail['interval'] = interval
+        asset_detail['date'] = random_date
+        asset_detail['path'] = random_path
+        asset_detail['symbol'] = random_asset
+        asset_detail['data'] = get_stock(asset_detail)
+        yield asset_detail
