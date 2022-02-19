@@ -13,6 +13,10 @@ FNO_OPTIONS='fno_options'
 NSE='nse'
 BSE='bse'
 
+CSV='csv'
+PARQUET='parquet'
+ORC='orc'
+
 
 # Write general platform independent constants
 NIFTY50 = ['RELIANCE','INFY','HDFC','TCS','HDFCBANK','ICICIBANK','TATAMOTORS',

@@ -1,24 +1,34 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime as dt, timedelta as td
+import glob
+from talgoutils.data_reader import reader
 
-
-def get_asset( asset_name, date):
-    return asset_data
+def get_data(asset_detail):
+    df = pd.DataFrame()
+    for csv_file in glob.glob(os.path.join(asset_detail['path'],'*.csv')):
+        df = reader.get_data(csv_file)
+    return df
 
 def feed_sequential_data(
-                    asset_list=const.NIFTY50,
-                    interval='5minute',
-                    start_date,
-                    end_date):
-    for asset in asset_list:
-        while iter_date>=start_date:
-            iter_date = end_date
+    exchange='NSE', asset_class='EQ', asset_list=const.NIFTY50,
+    interval='5minute', start_date=None, end_date=None):
+
+
+    iter_date=end_date
+    while iter_date>=start_date:
+        for asset in asset_list:
+            asset_detail['exchange'] = exchange
+            asset_detail['class'] = asset_class
+            asset_detail['interval'] = interval
             asset_detail['date'] = iter_date
-            asset_detail['symbol'] = random_asset
-            asset_detail['data'] = get_asset(asset_name, asset_date)
+            asset_detail['symbol'] = asset
+            asset_detail['path']  =  os.path.join( const.DATA_PATH, exchange,
+                                        asset_class, random_asset, interval,
+                                        random_date.strftime('y=%Y/m=%m/d=%d'))
+            asset_detail['data'] = get_asset(asset_detail)
             yield asset_detail
-            iter_date =  iter_date - timedelta(days=1)
+        iter_date =  iter_date - timedelta(days=1)
 
 
 def feed_random_data(
@@ -44,7 +54,7 @@ def feed_random_data(
         asset_detail['class'] = asset_class
         asset_detail['interval'] = interval
         asset_detail['date'] = random_date
-        asset_detail['path'] = random_path
         asset_detail['symbol'] = random_asset
+        asset_detail['path'] = random_path
         asset_detail['data'] = get_stock(asset_detail)
         yield asset_detail
