@@ -1,13 +1,17 @@
-import pandas as pd
-import numpy as np
 from datetime import datetime as dt, timedelta as td
-import glob
+from talgoutils import constants as const
 from talgoutils.data_reader import reader
+import talgoutils.env as env
+import glob
+import numpy as np
+import random
+import pandas as pd
+import os
 
 def get_data(asset_detail):
     df = pd.DataFrame()
     for csv_file in glob.glob(os.path.join(asset_detail['path'],'*.csv')):
-        df = reader.get_data(csv_file)
+        df = reader.read_data(csv_file)
     return df
 
 def feed_sequential_data(
@@ -23,7 +27,7 @@ def feed_sequential_data(
             asset_detail['interval'] = interval
             asset_detail['date'] = iter_date
             asset_detail['symbol'] = asset
-            asset_detail['path']  =  os.path.join( const.DATA_PATH, exchange,
+            asset_detail['path']  =  os.path.join( env.DATA_PATH, exchange,
                                         asset_class, random_asset, interval,
                                         random_date.strftime('y=%Y/m=%m/d=%d'))
             asset_detail['data'] = get_asset(asset_detail)
@@ -33,15 +37,15 @@ def feed_sequential_data(
 
 def feed_random_data(
     exchange='NSE', asset_class='EQ', asset_list=const.NIFTY50,
-    interval='5minute', start_date=None, end_date=None):
-
+    interval='5minute', start_date=dt(2015,2,2), end_date=dt(2021,10,31)):
 
     while True:
 
         random_asset = random.choice(asset_list)
-        random_date = start_date + td(days = random.randrange((end_date - start_date).days))
+        random_date = start_date + td(days=random.randrange(
+                                        (end_date - start_date).days))
         random_path = os.path.join(
-                                const.DATA_PATH,
+                                env.DATA_PATH,
                                 exchange,
                                 asset_class,
                                 random_asset,
@@ -56,5 +60,5 @@ def feed_random_data(
         asset_detail['date'] = random_date
         asset_detail['symbol'] = random_asset
         asset_detail['path'] = random_path
-        asset_detail['data'] = get_stock(asset_detail)
+        asset_detail['data'] = get_data(asset_detail)
         yield asset_detail
