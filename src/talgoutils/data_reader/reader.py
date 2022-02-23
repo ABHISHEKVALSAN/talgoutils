@@ -23,8 +23,13 @@ def read_data(filename):
         print('Warning: Unknown file format for file {}'.format(filename))
 
 def read_csv(path):
-    df = pd.read_csv(path)
-    return df
+    try:
+        df = pd.read_csv(path)
+        return df
+    except:
+        print('Could not read {}'.format(path))
+        return pd.DataFrame({})
+
 
 def read_parquet(path):
     df = pd.read_parquet(path)
